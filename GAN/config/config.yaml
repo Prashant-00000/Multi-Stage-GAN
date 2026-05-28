@@ -1,0 +1,79 @@
+# GAN Project Configuration
+
+# Stage Selection
+stage: 1  # 1, 2, 2b, or 3
+
+# Device
+device: cuda  # cuda or cpu
+
+# Global Hyperparameters
+z_dim: 100
+batch_size: 64
+num_workers: 4
+
+# Learning Rate & Optimization
+lr: 0.0002
+beta1: 0.5
+beta2: 0.999
+weight_decay: 0.0
+
+# Training Configuration
+epochs: 50
+save_interval: 5  # Save checkpoint every N epochs
+log_interval: 100  # Log loss every N batches
+
+# Dataset Configuration
+dataset: mnist  # mnist, celeba, monet2photos
+data_path: ./data
+num_classes: 10  # For conditional GAN
+
+# Stage 1: Basic GAN
+stage1:
+  hidden_dim: 256
+  img_dim: 784  # 28x28 flattened
+
+# Stage 2: DCGAN
+stage2:
+  img_size: 28
+  channels: 1  # Grayscale
+  feature_maps: 64
+
+# Stage 2b: Conditional GAN
+stage2b:
+  img_size: 28
+  channels: 1
+  feature_maps: 64
+  embedding_dim: 100
+
+# Stage 3: CycleGAN
+stage3:
+  img_size: 256
+  channels: 3  # RGB
+  num_residual_blocks: 9
+  feature_maps: 64
+  lambda_identity: 0.5  # Identity loss weight
+  lambda_cycle: 10.0    # Cycle loss weight
+  replay_buffer_size: 50
+
+# Evaluation
+evaluation:
+  fid_batch_size: 64
+  num_inception_samples: 10000
+  save_fid_stats: true
+  eval_interval: 5  # Evaluate every N epochs
+
+# Paths
+paths:
+  checkpoint_dir: ./outputs/checkpoints
+  image_dir: ./outputs/images
+  log_dir: ./outputs/logs
+  data_dir: ./data
+
+# Advanced Options
+advanced:
+  label_smoothing: true
+  real_label_smooth: 0.9
+  fake_label_smooth: 0.1
+  gradient_penalty: false  # WGAN-GP
+  spectral_norm: false     # For discriminator
+  use_replay_buffer: false  # CycleGAN only

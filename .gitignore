@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Dataset
+data/
+
+# Outputs
+outputs/
+
+# Model weights
+*.pth
+*.pt
+*.ckpt
+
+# Virtual env
+venv/
+.env
